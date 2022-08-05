@@ -1,0 +1,90 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  push_to_registries:
+    name: Push Docker image
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: c compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/c
+          push: true
+          tags: perftool/compile:c
+          platforms: linux/amd64,linux/arm64
+      - name: cpp compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/cpp
+          push: true
+          tags: perftool/compile:cpp
+          platforms: linux/amd64,linux/arm64
+      - name: ebpf compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/ebpf
+          push: true
+          tags: perftool/compile:ebpf
+          platforms: linux/amd64,linux/arm64
+      - name: go compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/go
+          push: true
+          tags: perftool/compile:go
+          platforms: linux/amd64,linux/arm64
+      - name: jdk17 maven compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/jdk17-mvn
+          push: true
+          tags: perftool/compile:jdk17-mvn
+          platforms: linux/amd64,linux/arm64
+      - name: rust compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/rust
+          push: true
+          tags: perftool/compile:rust
+          platforms: linux/amd64,linux/arm64
