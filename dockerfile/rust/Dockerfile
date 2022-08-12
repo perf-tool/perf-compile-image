@@ -21,4 +21,5 @@ FROM perftool/base:rust
 
 RUN apt-get update && \
     apt-get install -y gcc g++ make cmake && \
+    apt-get install -y libssl-dev && \
     apt-get clean all
