@@ -17,7 +17,7 @@
 # under the License.
 #
 
-FROM perftool/base
+FROM perftool/base:go
 
 RUN apt-get update && \
     apt-get install -y gcc make && \
