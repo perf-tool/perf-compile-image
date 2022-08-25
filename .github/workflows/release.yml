@@ -74,13 +74,20 @@ jobs:
           push: true
           tags: perftool/compile:go
           platforms: linux/amd64,linux/arm64
+      - name: graal compile image
+        uses: docker/build-push-action@v3
+        with:
+          context: dockerfile/graal
+          push: true
+          tags: perftool/compile:graal
+          platforms: linux/amd64,linux/arm64
       - name: jdk17 maven compile image
         uses: docker/build-push-action@v3
         with:
           context: dockerfile/jdk17-mvn
           push: true
           tags: perftool/compile:jdk17-mvn
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
       - name: rust compile image
         uses: docker/build-push-action@v3
         with:
