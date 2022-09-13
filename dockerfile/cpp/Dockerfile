@@ -21,4 +21,5 @@ FROM perftool/base
 
 RUN apt-get update && \
     apt-get install -y gcc g++ make cmake && \
+    apt-get install -y gdb && \
     apt-get clean all
