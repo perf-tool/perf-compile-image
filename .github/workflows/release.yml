@@ -47,49 +47,49 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: c compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/c
           push: true
           tags: perftool/compile:c
           platforms: linux/amd64,linux/arm64
       - name: cpp compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/cpp
           push: true
           tags: perftool/compile:cpp
           platforms: linux/amd64,linux/arm64
       - name: ebpf compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/ebpf
           push: true
           tags: perftool/compile:ebpf
           platforms: linux/amd64,linux/arm64
       - name: go compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/go
           push: true
           tags: perftool/compile:go
           platforms: linux/amd64,linux/arm64
       - name: graal compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/graal
           push: true
           tags: perftool/compile:graal
           platforms: linux/amd64,linux/arm64
       - name: jdk17 maven compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/jdk17-mvn
           push: true
           tags: perftool/compile:jdk17-mvn
           platforms: linux/amd64
       - name: rust compile image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dockerfile/rust
           push: true
